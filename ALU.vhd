@@ -16,12 +16,13 @@ entity ALU_Nbits is
         signal selec_x : std_logic;
         signal arit_x, log_x : signed(n-1 downto 0);
         signal flag : std_logic_vector(3 downto 0);
-        signal arit_s, log_s : signed(n-1 downto 0);
+        signal mas_sig, menos_sig : std_logic;
+        
         begin
-        with selec select
-        selec_x <= '0' when "00",
-        		'1' when "01",
-        		'0' when "10",
+        
+        
+        with menos_sig select
+        selec_x <= '0' when '0',
         		'1' when others;
 
         FuncLog_Nbits_0: entity work.FuncLog_Nbits(behavioral)
@@ -41,16 +42,10 @@ entity ALU_Nbits is
             r => arit_x
         );
         
-        with selec select
-        	arit_s <= "1111" when "00",
-                	"1111" when "01",
-                    "0000" when others;
-
-		with selec select
-        	log_s <= "1111" when "10",
-          	      	"1111" when "11",
-            	    "0000" when others;
-                
-        resul <= arit_s or log_s;
+        mas_sig <= selec(1);
+        menos_sig <= selec(0);
+        with mas_sig select
+        resul <= log_x when '1',
+                arit_X when others;
         
     	end behavioral;
