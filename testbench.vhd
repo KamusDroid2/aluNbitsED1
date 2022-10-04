@@ -12,7 +12,7 @@ component ALU_Nbits is
         selec: in std_logic_vector (1 downto 0);
         resul: out signed(N-1 downto 0);
         flags: out std_logic_vector(3 downto 0);
-);
+         );
 end component;
 
 signal nro1_test, nro2_test: signed (N-1 downto 0);
