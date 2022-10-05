@@ -1,94 +1,50 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all; 
+use ieee.numeric_std.all;
 
-ENTITY SumArit_Nbits_test IS
-END SumArit_Nbits_test;
+entity SumArit_Nbits_test is
+end SumArit_Nbits_test;
 
 architecture Behavioral of SumArit_Nbits_test is
-	component SumArit_Nbits
-    generic(n : integer := 4);
-    port(
-        a, b: in signed(n-1 downto 0);
-        op: in std_logic;
-        r: out signed(n-1 downto 0);
-        zcvn: out std_logic_vector(3 downto 0)
-    );
+	component SumArit_Nbits is
+    	generic(n: integer := 4);
+        port(
+            a, b: in signed(N-1 downto 0);
+            op: in std_logic;
+            r: out signed(N-1 downto 0);
+            zcvn: out std_logic_vector(3 downto 0);
+        );
     end component;
-    
-	signal test_a, test_b: signed (n-1 downto 0) := '0000';
-    signal test_op std_logic := '0';
-    signal r_test signed (n-1 downto 0) := '0000';
-    signal test_zcvn std_logic_vector(3 downto 0) := '0000';
-
+   	constant n_test: integer := 4;
+    signal a_test, b_test, r_test: signed(N_test - 1 downto 0);
+    signal op_test: std_logic;
+    signal zcvn_test: std_logic_vector(3 downto 0);
 begin
-	SumArit: entity work.SumArit_Nbits(Behavioral)
-    port map(
-    a => test_a;
-    b => test_b;
-    op => test_op;
-    r => r_test;
-    zcvn = > test_zcvn
-    );
-
-process 
-begin
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='' ) report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='', test_zcvn='') report "Fallo caso 0" severity error;
-
-    assert false report "Test terminado" severity note;
-    wait;
-  end process;
-end;
+	uut: SumArit_Nbits generic map(N => N_test)
+    				   port map(
+                           a => a_test,
+                           b => b_test,
+                           op => op_test,
+                           r => r_test,
+                           zcvn => zcvn_test
+                       );
+	process
+    begin
+    	a_test <= "1100";
+        b_test <= "0011";
+        op_test <= '0';
+        wait for 1 ns;
+        assert r_test = "0010" report "Falló Caso 1" severity failure;
+        assert zcvn_test = "1111" report "Fallo Caso 1 (flag)" severity failure;
+        
+        a_test <= "1001";
+        b_test <= "1111";
+        op_test <= '1';
+        wait for 1 ns;
+        assert r_test = "1010" report "Fallo Caso 2" severity failure;
+        assert zcvn_test = "1111" report "Fallo Caso 2 (flag)" severity failure;
+        
+        assert false report "Test Done" severity note;
+        wait;
+    end process;
+end behavioral;

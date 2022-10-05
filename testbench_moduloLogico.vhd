@@ -1,91 +1,51 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all; 
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 
-ENTITY FuncLog_Nbits_test IS
-END FuncLog_Nbits_test;
+entity FuncLog_Nbits_test is
+end FuncLog_Nbits_test;
 
 architecture Behavioral of FuncLog_Nbits_test is
-	component FuncLog_Nbits
-    generic(n : integer := 2);
-    port(
-        a, b: in signed(n-1 downto 0);
-        op: in std_logic;
-        r: out signed(n-1 downto 0)
-    );
+	constant n_test: integer := 4;
+	component FuncLog_Nbits is
+    	generic(n: integer := 4);
+        port(a, b: in signed(N-1 downto 0);
+            op: in std_logic;
+            r: out signed(N-1 downto 0)
+        );
     end component;
-    
-	signal test_a, test_b: signed (n-1 downto 0) := '00';
-    signal test_op std_logic := '0';
-    signal test_r signed (n-1 downto 0) := '00';
-
+    signal a_test, b_test, r_test: signed(n_test-1 downto 0);
+    signal op_test: std_logic;
 begin
-	FunLog: entity work.FuncLog_Nbits(Behavioral)
+	uut: FuncLog_Nbits
+    generic map(n => n_test)
     port map(
-    a => test_a;
-    b => test_b;
-    op => test_op;
-    r => test_r
+    	a => a_test,
+        b => b_test,
+        op => op_test,
+        r => r_test
     );
-
-process 
-begin
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    test_a <= '';
-    test_b <= '';
-    test_sel <= '';
-    wait for 1 ns;
-    assert (r_test='') report "Fallo caso 0" severity error;
-
-    assert false report "Test terminado" severity note;
-    wait;
-  end process;
-end;
+    process
+    begin
+    	a_test <= "1111";
+        b_test <= "0001";
+        op_test <= '0';
+        wait for 1 ns;
+        assert r_test = "0000" report "Fallo caso 1" severity failure;
+        
+        a_test <= "0011";
+        b_test <= "0011";
+        OP_test <= '1';
+        wait for 1 ns;
+        assert r_test = "0111" report "Fallo caso 2" severity failure;
+        
+        a_test <= "1111";
+        b_test <= "0011";
+        OP_test <= '0';
+        wait for 1 ns;
+        assert r_test = "0101" report "Fallo caso 3" severity failure;
+        
+        assert false report "Test Done" severity note;
+        wait;
+    end process;
+end Behavioral;
