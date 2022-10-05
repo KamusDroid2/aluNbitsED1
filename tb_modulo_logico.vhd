@@ -60,5 +60,20 @@ begin
     wait for 1 ns;
     assert test_r = '1111' report "Fallo en caso 3" severity failure;
 
+    -- Caso 4
+    test_a <= '1101';
+    test_b <= '1100';
+    test_op <= '0';
+    wait for 1 ns;
+    assert test_r = '1100' report "Fallo en caso 4" severity failure;
+
+    -- Caso 5
+    test_a <= '1101';
+    test_b <= '1101';
+    test_op <= '1';
+    wait for 1 ns;
+    assert test_r = '1101' report "Fallo en caso 5" severity failure;
+
+    assert false report "testbench completado" severity note;
 end process;
 end Behavioral;
