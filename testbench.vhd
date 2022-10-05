@@ -1,22 +1,27 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity ALU_Nbits_test is
 end ALU_Nbits_test;
 
 architecture Behavioral of ALU_Nbits_test is
 
-component ALU_Nbits is 
+	constant zero : integer := 4;
+	constant n : integer := 4;
+
+	component ALU_Nbits is 
+	generic (n : integer := 4);
 	port(
     	nro1,nro2: in signed(N-1 downto 0);
         selec: in std_logic_vector (1 downto 0);
         resul: out signed(N-1 downto 0);
         flags: out std_logic_vector(3 downto 0);
          );
-end component;
+    end component;
 
-signal nro1_test, nro2_test: signed (N-1 downto 0);
-signal selec_test: std_logic_vector (1 downto 0);
+signal nro1_test, nro2_test: signed (N-1 downto 0) := "0000";
+signal selec_test: std_logic_vector (1 downto 0) := "00";
 signal resul_test: signed (N-1 downto 0);
 signal flags_test: std_logic_vector (3 downto 0);
 
@@ -25,7 +30,7 @@ begin
 ALU: ALU_Nbits port map(
 	nro1=> nro1_test,
         nro2=>nro2_test,
-	selec=>selec_test;
+		selec=>selec_test,
         resul=> resul_test,
         flags=>flags_test
         );
