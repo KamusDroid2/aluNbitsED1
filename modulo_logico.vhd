@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all; -- Es para usar 'signed' y 'unsigned'.
 
 entity FuncLog_Nbits is
-    generic(n : integer := 2);
+    generic(n : integer := 4);
     port(
         a, b: in signed(n-1 downto 0);
         op: in std_logic;
