@@ -17,10 +17,10 @@ architecture Behavioral of test_FuncLog_Nbits is
         );
     end component;
 
-    signal test_a : std_logic := '0000';
-    signal test_b : std_logic := '0000';
-    signal test_op : std_logic := '0';
-    signal test_r : std_logic;
+    signal test_a : std_logic_vector := '0000';
+    signal test_b : std_logic_vector := '0000';
+    signal test_op : std_logic       := '0';
+    signal test_r : std_logic_vector;
 
 
 begin
