@@ -75,5 +75,7 @@ begin
     assert test_r = '1101' report "Fallo en caso 5" severity failure;
 
     assert false report "testbench completado" severity note;
+    wait;
+
 end process;
 end Behavioral;
