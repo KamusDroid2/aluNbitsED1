@@ -38,12 +38,12 @@ ALU: ALU_Nbits port map(
 process
 begin
 	
-    nro1_test <= "1111";
+    nro1_test <= "0001";
         nro2_test <= "0001";
         selec_test <= "00";
         wait for 1 ns;
-        assert (resul_test = "0000") report "Fallo Caso 1" severity failure;
-        assert (flags_test = "1100") report "Fallo Caso 1 (flag)" severity failure;
+        assert (resul_test = "0010") report "Fallo Caso 1" severity failure;
+        assert (flags_test = "0000") report "Fallo Caso 1 (flag)" severity failure;
         
         nro1_test <= "0101";
         nro2_test <= "0101";
@@ -52,6 +52,8 @@ begin
         assert (resul_test = "1010") report "Fallo Caso 2" severity failure;
         assert (flags_test = "0011") report "Fallo Caso 2 (flag)" severity failure;
         
+ 		nro1_test <= "0101";
+        nro2_test <= "0101";        
         selec_test <= "01";
         wait for 1 ns;
         assert (resul_test = "0000") report "Fallo Caso 3" severity failure;
@@ -64,10 +66,12 @@ begin
         assert (resul_test = "1111") report "Fallo Caso 4" severity failure;
         assert (flags_test = "0001") report "Fallo Caso 4 (flag)" severity failure;
         
+        nro1_test <= "1000";
+        nro2_test <= "0111";
         selec_test <= "01";
         wait for 1 ns;
         assert (resul_test = "0001") report "Fallo Caso 5" severity failure;
-        assert (flags_test = "0010") report "Fallo Caso 5 (flag)" severity failure;
+        assert (flags_test = "0000") report "Fallo Caso 5 (flag)" severity failure;
         
         nro1_test <= "0110";
         nro2_test <= "1010";
@@ -76,23 +80,26 @@ begin
         assert (resul_test = "0000") report "Fallo Caso 6" severity failure;
         assert (flags_test = "1100") report "Fallo Caso 6 (flag)" severity failure;
         
+        nro1_test <= "0110";
+        nro2_test <= "1010";
         selec_test <= "01";
         wait for 1 ns;
         assert (resul_test = "1100") report "Fallo Caso 7" severity failure;
-        assert (flags_test = "0111") report "Fallo Caso 7 (flag)" severity failure;
+        assert (flags_test = "0101") report "Fallo Caso 7 (flag)" severity failure;
         
         nro1_test <= "1101";
         nro2_test <= "1100";
         selec_test <= "10";
         wait for 1 ns;
         assert (resul_test = "1100") report "Fallo Caso 8" severity failure;
-        assert (flags_test = "0000") report "Fallo Caso 8 (flag)" severity failure;
-        
+        assert (flags_test = "0101") report "Fallo Caso 8 (flag)" severity failure;
+                
+        nro1_test <= "1101";
         nro2_test <= "1101";
         selec_test <= "11";
         wait for 1 ns;
         assert (resul_test = "1101") report "Fallo Caso 9" severity failure;
-        assert (flags_test = "0000") report "Fallo Caso 9 (flag)" severity failure;
+        assert (flags_test = "1110") report "Fallo Caso 9 (flag)" severity failure;
     
     assert false report "Test done" severity note;
     wait;
