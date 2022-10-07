@@ -14,7 +14,6 @@ entity SumArit_Nbits is
 
 architecture behavioral of SumArit_Nbits is
     constant zero : signed(n-1 downto 0) := (others => '0');
-    signal comp : signed(n-1 downto 0);
     signal carry : unsigned(n downto 0);
     
     
@@ -24,12 +23,8 @@ architecture behavioral of SumArit_Nbits is
         
       carry <= unsigned('0' & a) + unsigned('0' & b); -- se suman las entradas en una señal de N bits, si el bit mas significativo es uno, hubo carry.
       
-      
-      
-      comp <= zero xnor r; --si el numero son sólo ceros, comp vale 1.
-      
-      with comp(0) select
-      zcvn(3) <= '1' when '1', -- si comp vale uno, la flag se levanta
+      with r(n-1 downto 0) select
+      zcvn(3) <= '1' when zero, -- si comp vale uno, la flag se levanta
       			'0' when others;
       
       zcvn(2) <= '1' when carry(n) = '1' else -- si el bit mas significativo es 1, hubo carry, se levanta la flag.
